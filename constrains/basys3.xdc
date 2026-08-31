@@ -63,6 +63,12 @@ set_property IOSTANDARD LVCMOS33 [get_ports btnL]
 set_property PACKAGE_PIN T17 [get_ports btnR]
 set_property IOSTANDARD LVCMOS33 [get_ports btnR]
 
+set_property PACKAGE_PIN T18 [get_ports btnU]
+set_property IOSTANDARD LVCMOS33 [get_ports btnU]
+
+set_property PACKAGE_PIN U17 [get_ports btnD]
+set_property IOSTANDARD LVCMOS33 [get_ports btnD]
+
 ## LEDs
 set_property PACKAGE_PIN U16 [get_ports {led[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
