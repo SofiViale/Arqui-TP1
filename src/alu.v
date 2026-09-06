@@ -26,14 +26,18 @@ reg overflow_reg;
 reg carry_out_reg;
 
 always @(*) begin
+    // Valores por defecto para operaciones que no generan estas banderas.
+    overflow_reg = 1'b0;
+    carry_out_reg = 1'b0;
+
     case(op)
         ADD: begin
-            {carry_out_reg, result} = a + b;
+            {carry_out_reg, result} = {1'b0, a} + {1'b0, b};
             overflow_reg = (a[N_DATA-1] == b[N_DATA-1]) && (result[N_DATA-1] != a[N_DATA-1]);
             zero_reg = (result == 0);
         end
         SUB: begin
-            {carry_out_reg, result} = a - b;
+            {carry_out_reg, result} = {1'b0, a} - {1'b0, b};
             overflow_reg = (a[N_DATA-1] != b[N_DATA-1]) && (result[N_DATA-1] != a[N_DATA-1]);
             zero_reg = (result == 0);
         end

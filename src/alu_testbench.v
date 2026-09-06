@@ -36,6 +36,7 @@ alu #(
 );
 
 initial begin
+    fails = 1'b0;
     $display("Starting ALU Testbench...");
 
     $display("Testing ADD operation...");
@@ -60,7 +61,7 @@ initial begin
     #10;
     $display("ADD with overflow: %d + %d = %d (zero: %b, overflow: %b, carry: %b)", a_reg, b_reg, res, zero, overflow, carry_out);
 
-    if (res !== 8'd128 || zero !== 1'b0 || overflow !== 1'b1 || carry_out !== 1'b1) begin
+    if (res !== 8'd128 || zero !== 1'b0 || overflow !== 1'b1 || carry_out !== 1'b0) begin
         $display("ADD with overflow test failed!");
         fails = 1;
     end else begin
@@ -109,18 +110,18 @@ initial begin
         $display("SUB test passed.");
     end
 
-    // Test SUB with overflow
+    // Test SUB with borrow
     a_reg = 8'd0;
     b_reg = 8'd1;
     op_reg = SUB;
     #10;
-    $display("SUB with overflow: %d - %d = %d (zero: %b, overflow: %b, carry: %b)", a_reg, b_reg, res, zero, overflow, carry_out);
+    $display("SUB with borrow: %d - %d = %d (zero: %b, overflow: %b, carry: %b)", a_reg, b_reg, res, zero, overflow, carry_out);
 
-    if (res !== 8'd255 || zero !== 1'b0 || overflow !== 1'b1 || carry_out !== 1'b1) begin
-        $display("SUB with overflow test failed!");
+    if (res !== 8'd255 || zero !== 1'b0 || overflow !== 1'b0 || carry_out !== 1'b1) begin
+        $display("SUB with borrow test failed!");
         fails = 1;
     end else begin
-        $display("SUB with overflow test passed.");
+        $display("SUB with borrow test passed.");
     end
 
     // Test SUB with zero result
