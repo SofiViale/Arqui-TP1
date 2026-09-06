@@ -16,6 +16,9 @@ reg [N_DATA-1:0] b_reg;
 reg [N_DATA-1:0] res_reg;
 
 wire [N_DATA-1:0] res;
+wire zero;
+wire overflow;
+wire carry_out;
 
 always @(posedge clk) begin
     if (btnL)
@@ -42,10 +45,16 @@ alu #(
     .a(a_reg),
     .b(b_reg),
     .op(sw[N_OP-1:0]),
-    .res(res)
+    .res(res),
+    .zero(zero),
+    .overflow(overflow),
+    .carry_out(carry_out)
 );
 
 assign led[N_DATA-1:0] = res_reg;
-assign led[15:N_DATA] = 0;
+
+assign led[15] = zero; 
+assign led[14] = overflow; 
+assign led[13] = carry_out; 
 
 endmodule
