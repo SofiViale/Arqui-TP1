@@ -33,13 +33,19 @@ Para verificar el núcleo se preparó un banco de pruebas con 14 casos dirigidos
 
 Además de la verificación planteada mediante el banco de pruebas, el diseño se llevó a Vivado para realizar el proceso de síntesis e implementación y generar el archivo de programación. Posteriormente, se cargó el diseño en una FPGA Basys 3 y se efectuaron pruebas prácticas utilizando los interruptores para ingresar los operandos y seleccionar las operaciones, los botones para almacenar los datos y los LED para observar los resultados y las banderas. Durante estas pruebas, la ALU respondió correctamente y se comprobó el funcionamiento esperado del sistema completo en hardware.
 
-## Resultado obtenido en Vivado
+## Esquemas RTL obtenidos en Vivado
 
-En este apartado se incorpora el gráfico generado por Vivado como evidencia del proceso de síntesis e implementación del diseño.
+La Figura 1 muestra el esquema general elaborado por Vivado a partir del módulo superior `basys3_top`. Se observan los registros de 8 bits destinados a almacenar los operandos `a` y `b`, el bloque correspondiente a la ALU y el registro que conserva el resultado. También aparecen las entradas físicas de la placa —reloj, interruptores y botones— y la conexión de las salidas hacia los LED. Este esquema permite verificar la integración entre el circuito combinacional de cálculo y los elementos secuenciales controlados por el reloj.
 
-![alt text](image.png)
->![alt text](image-1.png)
-> *Figura 1. Resultado de la síntesis e implementación de la ALU en Vivado.*
+![Esquema RTL general de la ALU y su interfaz con la Basys 3](image.png)
+
+*Figura 1. Esquema RTL general del módulo `basys3_top` generado por Vivado.*
+
+La Figura 2 presenta una vista expandida del bloque `alu_inst`. En ella se distinguen los recursos empleados para implementar las operaciones de suma, resta, AND, OR, XOR, NOR y los desplazamientos. Los multiplexores seleccionan el resultado y las banderas correspondientes según el código `op[5:0]`. La imagen muestra cómo la descripción mediante la estructura `case` fue traducida por Vivado a bloques lógicos interconectados.
+
+![Vista RTL expandida de las operaciones internas de la ALU](image-1.png)
+
+*Figura 2. Esquema RTL interno de la ALU, con sus operaciones y circuitos de selección.*
 
 En el núcleo, `overflow_reg` y `carry_out_reg` se inicializan en cero al comienzo del bloque combinacional y se actualizan cuando corresponde en las operaciones aritméticas. De esta manera, las operaciones lógicas y de desplazamiento no conservan banderas generadas por una operación anterior y se evita la inferencia de latches. Como mejoras de integración, se plantea sincronizar las entradas externas, incorporar tratamiento del rebote de los botones y registrar las banderas junto con el resultado si se busca una visualización consistente.
 
