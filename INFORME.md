@@ -37,8 +37,8 @@ Además de la verificación planteada mediante el banco de pruebas, el diseño s
 
 En este apartado se incorpora el gráfico generado por Vivado como evidencia del proceso de síntesis e implementación del diseño.
 
-> **Insertar aquí el gráfico o la captura obtenida en Vivado.**
->
+![alt text](image.png)
+>![alt text](image-1.png)
 > *Figura 1. Resultado de la síntesis e implementación de la ALU en Vivado.*
 
 En el núcleo, `overflow_reg` y `carry_out_reg` se inicializan en cero al comienzo del bloque combinacional y se actualizan cuando corresponde en las operaciones aritméticas. De esta manera, las operaciones lógicas y de desplazamiento no conservan banderas generadas por una operación anterior y se evita la inferencia de latches. Como mejoras de integración, se plantea sincronizar las entradas externas, incorporar tratamiento del rebote de los botones y registrar las banderas junto con el resultado si se busca una visualización consistente.
